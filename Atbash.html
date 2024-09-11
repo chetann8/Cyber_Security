@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Atbash Cipher</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ background-image: url('https://img.freepik.com/premium-photo/lock-withkey-dark-background_916191-5002.jpg'); /* Replace with your background image URL */
+ background-size: cover;
+ background-position: center;
+ margin: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100vh;
+ }
+ .container {
+ background-color: rgba(255, 255, 255, 1); /* Opacity for container */
+ padding: 30px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ width: 100%;
+ max-width: 400px;
+ text-align: center;
+ }
+ h1 {
+ color: #007bff;
+ margin-bottom: 20px;
+ }
+ label {
+ display: block;
+ margin-bottom: 10px;
+ font-weight: bold;
+ }
+ input[type="text"] {
+ width: 100%;
+ padding: 10px;
+ margin-bottom: 20px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ box-sizing: border-box;
+ font-size: 16px;
+ }
+ button {
+ padding: 10px 20px;
+ font-size: 16px;
+ background-color: #007bff;
+ color: #fff;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ }
+ button:hover {
+ background-color: #0056b3;
+ }
+ .result {
+ margin-top: 20px;
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ font-size: 16px;
+ }
+ </style>
+</head>
+<body>
+ <div class="container">
+ <h1>Atbash Cipher</h1>
+ <label for="input-text">Enter Text:</label>
+ <input type="text" id="input-text" placeholder="Enter text...">
+ <button onclick="encrypt()">Encrypt</button>
+ <div class="result" id="output-text"></div>
+ </div>
+ <script>
+ function atbash(text) {
+ let result = '';
+ for (let i = 0; i < text.length; i++) {
+ let charCode = text.charCodeAt(i);
+ if (charCode >= 65 && charCode <= 90) {
+ // Uppercase letters
+result += String.fromCharCode(90 - (charCode - 65));
+ } else if (charCode >= 97 && charCode <= 122) {
+ // Lowercase letters
+result += String.fromCharCode(122 - (charCode - 97));
+ } else {
+ // Non-alphabetic characters remain unchanged
+result += text.charAt(i);
+ }
+ }
+ return result;
+ }
+ function encrypt() {
+ let inputText = document.getElementById('input-text').value;
+ let encryptedText = atbash(inputText);
+ document.getElementById('output-text').innerText = 'Encrypted Text: ' + 
+encryptedText;
+ }
+ </script>
+</body>
+</html>
