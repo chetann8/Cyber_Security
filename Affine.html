@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Affine Cipher</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ background-image: url('https://img.freepik.com/premium-photo/lock-withkey-dark-background_916191-5002.jpg');
+ background-size: cover;
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100vh;
+ }
+ .container {
+ max-width: 600px;
+ margin: 0 auto;
+ background-color: rgba(255, 255, 255, 1); /* Background color with 
+opacity */
+ padding: 20px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for container */
+ text-align: center;
+ }
+ h1 {
+ text-align: center;
+ color: #007bff;
+ }
+ label {
+ display: block;
+ margin-bottom: 10px;
+ font-weight: bold;
+ }
+ input[type="text"], input[type="number"] {
+ width: 100%;
+ padding: 10px;
+ margin-bottom: 20px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ box-sizing: border-box;
+ font-size: 16px;
+ }
+ button {
+ padding: 10px 20px;
+ font-size: 16px;
+ background-color: #007bff;
+ color: #fff;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ }
+ button:hover {
+ background-color: #0056b3;
+ }
+ .result {
+ margin-top: 20px;
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ font-size: 16px;
+ }
+ </style>
+</head>
+<body>
+ <div class="container">
+ <h1>Affine Cipher</h1>
+ <label for="input-text">Enter Text:</label>
+ <input type="text" id="input-text" placeholder="Enter text...">
+ <label for="key-a">Enter Key (a):</label>
+ <input type="number" id="key-a" placeholder="Enter key a..." min="1"
+required>
+ <label for="key-b">Enter Key (b):</label>
+ <input type="number" id="key-b" placeholder="Enter key b..." min="0"
+required>
+ <button onclick="encrypt()">Encrypt</button>
+ <button onclick="decrypt()">Decrypt</button>
+ <div class="result" id="output-text"></div>
+ </div>
+ <script>
+ function modInverse(a, m) {
+ a = ((a % m) + m) % m;
+ for (let x = 1; x < m; x++) {
+ if ((a * x) % m == 1) {
+ return x;
+ }
+ }
+ return 1;
+ }
+ function affineEncrypt(text, a, b) {
+ let result = '';
+ for (let i = 0; i < text.length; i++) {
+ let charCode = text.charCodeAt(i);
+ if (charCode >= 65 && charCode <= 90) {
+ // Uppercase letters
+result += String.fromCharCode(((a * (charCode - 65)) + b) % 26 + 
+65);
+ } else if (charCode >= 97 && charCode <= 122) {
+ // Lowercase letters
+result += String.fromCharCode(((a * (charCode - 97)) + b) % 26 + 
+97);
+ } else {
+ // Non-alphabetic characters remain unchanged
+ result += text.charAt(i);
+ }
+ }
+ return result;
+ }
+ function affineDecrypt(text, a, b) {
+ let result = '';
+ let inv = modInverse(a, 26);
+ for (let i = 0; i < text.length; i++) {
+ let charCode = text.charCodeAt(i);
+ if (charCode >= 65 && charCode <= 90) {
+ // Uppercase letters
+result += String.fromCharCode(((inv * (charCode - 65 - b)) % 26 + 
+26) % 26 + 65);
+ } else if (charCode >= 97 && charCode <= 122) {
+ // Lowercase letters
+result += String.fromCharCode(((inv * (charCode - 97 - b)) % 26 + 
+26) % 26 + 97);
+ } else {
+ // Non-alphabetic characters remain unchanged
+result += text.charAt(i);
+ }
+ }
+ return result;
+ }
+ function encrypt() {
+ let inputText = document.getElementById('input-text').value;
+ let keyA = parseInt(document.getElementById('key-a').value);
+ let keyB = parseInt(document.getElementById('key-b').value);
+ let encryptedText = affineEncrypt(inputText, keyA, keyB);
+ document.getElementById('output-text').innerText = 'Encrypted Text: ' + 
+encryptedText;
+ }
+ function decrypt() {
+ let inputText = document.getElementById('input-text').value;
+ let keyA = parseInt(document.getElementById('key-a').value);
+ let keyB = parseInt(document.getElementById('key-b').value);
+ let decryptedText = affineDecrypt(inputText, keyA, keyB);
+ document.getElementById('output-text').innerText = 'Decrypted Text: ' + 
+decryptedText;
+ }
+ </script>
+</body>
+</html>
