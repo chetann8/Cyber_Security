@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Welcome to Cryptographic Toolkit</title>
+ <!-- Bootstrap CSS -->
+ <link
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+rel="stylesheet">
+ <style>
+ body {
+ background-image:
+url('https://t4.ftcdn.net/jpg/03/58/10/87/360_F_358108785_rNJtmort9m65M3pft5swd7lnKJc
+TCB8u.jpg'); /* Replace with your background image URL */
+ background-size: cover;
+ background-position: center;
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin: 0;
+ }
+ .home-container {
+ background-color: rgba(255, 255, 255, 0.9);
+ padding: 30px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ width: 100%;
+ max-width: 600px;
+ text-align: center;
+ }
+ .welcome-message {
+ margin-bottom: 20px;
+ color: #007bff;
+ }
+ .btn-choice {
+ margin: 10px;
+ }
+ </style>
+</head>
+<body>
+ <div class="container home-container">
+ <h2 class="welcome-message">Welcome 
+<script>request.getParameter("name")</script>!</h2>
+ <p>Select a choice to perform:</p>
+ <button class="btn btn-primary btn-choice"
+onclick="location.href='atbash.html'">Atbash Cipher</button>
+ <button class="btn btn-primary btn-choice"
+onclick="location.href='ceasar.html'">ceasar Cipher</button>
+ <button class="btn btn-primary btn-choice"
+onclick="location.href='affine.html'">Affine Cipher</button>
+ <button class="btn btn-primary btn-choice"
+onclick="location.href='railfence.html'">Rail Fence Cipher</button>
+ <button class="btn btn-primary btn-choice"
+onclick="location.href='rsa.html'">RSA Cipher</button>
+ </div>
+ <!-- Bootstrap JS and dependencies -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script
+src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></scri
+pt>
+ <script
+src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script
+>
+</body>
+</html>
