@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Caesar Cipher</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100vh;
+ background-image: url('https://img.freepik.com/premium-photo/lock-withkey-dark-background_916191-5002.jpg');
+ background-size: cover;
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+ }
+ .overlay {
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(0, 0, 0, 0.5); /* Opacity for background image */
+ z-index: -1;
+ }
+ .container {
+ width: 80%;
+ max-width: 600px;
+ background-color: #fff; /* Solid background color for content */
+ padding: 20px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for container */
+ text-align: center;
+ z-index: 1;
+ }
+ h1 {
+ margin-bottom: 20px;
+ color: #007bff;
+ }
+ label, button {
+ display: block;
+ margin-bottom: 10px;
+ font-weight: bold;
+ }
+ input[type="number"], textarea {
+ width: 100%;
+ padding: 10px;
+ margin-bottom: 20px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ font-size: 16px;
+ box-sizing: border-box;
+ }
+ button {
+ padding: 10px 20px;
+ font-size: 16px;
+ background-color: #007bff;
+ color: #fff;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ }
+ button:hover {
+ background-color: #0056b3;
+ }
+ textarea {
+ resize: none; /* Prevent textarea resize */
+ height: 100px;
+ }
+ </style>
+</head>
+<body>
+ <div class="overlay"></div>
+ <div class="container">
+ <h1>Caesar Cipher Encryption and Decryption</h1>
+ <label for="cipher-key">Enter Cipher Key:</label>
+ <input type="number" id="cipher-key" placeholder="Enter cipher key...">
+ <textarea id="input-text" placeholder="Enter your message 
+here..."></textarea>
+ <button onclick="encrypt()">Encrypt</button>
+ <button onclick="decrypt()">Decrypt</button>
+ <textarea id="output-text" readonly placeholder="Output..."></textarea>
+ </div>
+ <script>
+ function encrypt() {
+ var inputText = document.getElementById('input-text').value;
+ var cipherKey = parseInt(document.getElementById('cipher-key').value);
+ var outputText = '';
+ if (isNaN(cipherKey)) {
+ alert('Please enter a valid cipher key.');
+ return;
+ }
+ for (var i = 0; i < inputText.length; i++) {
+ var charCode = inputText.charCodeAt(i);
+ // Encrypt uppercase letters
+ if (charCode >= 65 && charCode <= 90) {
+ outputText += String.fromCharCode(((charCode - 65 + cipherKey) % 
+26) + 65);
+ }
+ // Encrypt lowercase letters
+ else if (charCode >= 97 && charCode <= 122) {
+ outputText += String.fromCharCode(((charCode - 97 + cipherKey) % 
+26) + 97);
+ }
+ // Leave other characters unchanged
+ else {
+ outputText += inputText.charAt(i);
+ }
+ }
+ document.getElementById('output-text').value = outputText;
+ }
+ function decrypt() {
+ var inputText = document.getElementById('input-text').value;
+ var cipherKey = parseInt(document.getElementById('cipher-key').value);
+ var outputText = '';
+ if (isNaN(cipherKey)) {
+ alert('Please enter a valid key.');
+ return;
+ }
+ for (var i = 0; i < inputText.length; i++) {
+ var charCode = inputText.charCodeAt(i);
+ // Decrypt uppercase letters
+ if (charCode >= 65 && charCode <= 90) {
+ outputText += String.fromCharCode(((charCode - 65 - cipherKey + 
+26) % 26) + 65);
+ }
+ // Decrypt lowercase letters
+ else if (charCode >= 97 && charCode <= 122) {
+ outputText += String.fromCharCode(((charCode - 97 - cipherKey + 
+26) % 26) + 97);
+ }
+ // Leave other characters unchanged
+ else {
+ outputText += inputText.charAt(i);
+ }
+ }
+ document.getElementById('output-text').value = outputText;
+ }
+ </script>
+</body>
+</html>
