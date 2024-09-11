@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>RSA Cipher</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ background-image: url('https://img.freepik.com/premium-photo/lock-withkey-dark-background_916191-5002.jpg');
+ background-size: cover;
+ background-position: center;
+ height: 100vh;
+ margin: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ opacity: 1; /* Adjust opacity as needed */
+ }
+ .container {
+ max-width: 600px;
+ background-color: rgba(255, 255, 255, 0.9); /* Opacity for container */
+ padding: 20px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ text-align: center;
+ }
+ h1 {
+ text-align: center;
+ color: #007bff;
+ }
+ label {
+ display: block;
+ margin-bottom: 10px;
+ font-weight: bold;
+ }
+ input[type="number"], input[type="text"] {
+ width: 100%;
+ padding: 10px;
+ margin-bottom: 20px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ box-sizing: border-box;
+ font-size: 16px;
+ }
+ button {
+ padding: 10px 20px;
+ font-size: 16px;
+ background-color: #007bff;
+ color: #fff;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ }
+ button:hover {
+ background-color: #0056b3;
+ }
+ .result {
+ margin-top: 20px;
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ font-size: 16px;
+ }
+ </style>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/biginteger/1.6.48/BigInteger.min.js"></script>
+</head>
+<body>
+ <div class="container">
+ <h1>RSA Cipher</h1>
+ <label for="p">Enter p:</label>
+ <input type="number" id="p" placeholder="Enter prime number p...">
+ <label for="q">Enter q:</label>
+ <input type="number" id="q" placeholder="Enter prime number q...">
+ <label for="message">Enter original message (number):</label>
+ <input type="number" id="message" placeholder="Enter original message...">
+ <button onclick="performRSA()">Calculate and Perform RSA</button>
+ <div class="result" id="output"></div>
+ </div>
+ <script>
+ function gcd(a, b) {
+ while (b != 0) {
+ [a, b] = [b, a % b];
+ }
+ return a;
+ }
+ function modInverse(e, phi) {
+ let [m0, x0, x1] = [phi, 0, 1];
+ while (e > 1) {
+ let q = Math.floor(e / phi);
+ [e, phi] = [phi, e % phi];
+ [x0, x1] = [x1 - q * x0, x0];
+ }
+ if (x1 < 0) x1 += m0;
+ return x1;
+ }
+ function modExp(base, exp, mod) {
+ return bigInt(base).modPow(exp, mod);
+ }
+ function performRSA() {
+ let p = parseInt(document.getElementById('p').value);
+ let q = parseInt(document.getElementById('q').value);
+ let m = parseInt(document.getElementById('message').value);
+ if (isNaN(p) || isNaN(q) || isNaN(m)) {
+ alert("Please enter valid numbers for p, q, and message.");
+ return;
+ }
+ let n = p * q;
+ let phi = (p - 1) * (q - 1);
+ let e = 2;
+ while (e < phi) {
+ if (gcd(e, phi) === 1) break;
+ else e++;
+ }
+ let d = modInverse(e, phi);
+ let c = modExp(m, e, n);
+ let decrypted = modExp(c, d, n);
+ document.getElementById('output').innerHTML = `
+ <p>Calculated n = p * q: ${n}</p>
+ <p>Calculated φ(n) = (p-1) * (q-1): ${phi}</p>
+ <p>Calculated e (public key): ${e}</p>
+ <p>Calculated d (private key): ${d}</p>
+ <p>Encrypted message (c): ${c}</p>
+ <p>Decrypted message: ${decrypted}</p>
+ `;
+ }
+ </script>
+</body>
+</html>
