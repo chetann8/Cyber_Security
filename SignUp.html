@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Sign Up - Student Cryptographic Assist</title>
+ <!-- Bootstrap CSS -->
+ <link
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+rel="stylesheet">
+ <style>
+ body {
+ background-image: url('https://encryptedtbn0.gstatic.com/images?q=tbn:ANd9GcTsdaKwE0xDNc_YBe1RDNohKqd8Kw6NEQQwy_FtBVeCHA&s'); 
+/* Replace with your background image URL */
+ background-size: cover;
+ background-position: center;
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin: 0;
+ }
+ .signup-container {
+ background-color: rgba(255, 255, 255, 0.9);
+ padding: 30px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ width: 100%;
+ max-width: 600px;
+ }
+ .signup-container h2 {
+ margin-bottom: 20px;
+ text-align: center;
+ color: #007bff;
+ }
+ .signup-container button {
+ background-color: #007bff;
+ border: none;
+ }
+ .signup-container button:hover {
+ background-color: #0056b3;
+ }
+ .password-strength-weak {
+ color: red;
+ }
+ .password-strength-moderate {
+ color: yellow;
+ }
+ .password-strength-strong {
+ color: green;
+ }
+ </style>
+</head>
+<body>
+ <div class="container signup-container">
+ <h2>Sign Up</h2>
+ <h4>Accessible only to School of Engineering students</h4>
+ <form action="SignupServlet" method="POST" onsubmit="return validateForm()">
+ <div class="form-row">
+ <div class="form-group col-md-6">
+ <label for="name">Name</label>
+ <input type="text" class="form-control" id="name" name="name"
+required>
+ </div>
+ <div class="form-group col-md-6">
+ <label for="dob">Date of Birth</label>
+ <input type="date" class="form-control" id="dob" name="dob"
+required>
+ </div>
+ </div>
+ <div class="form-group">
+ <label for="email">College Email ID</label>
+ <input type="email" class="form-control" id="email" name="email"
+required>
+ <div class="invalid-feedback">
+ Please enter a valid email in the format: 
+chetan.20211cse0625@presidencyuniversity.in
+ </div>
+ </div>
+ <div class="form-group">
+ <label for="year">Current Year of Study</label>
+ <input type="text" class="form-control" id="year" name="year"
+required>
+ </div>
+ <div class="form-row">
+ <div class="form-group col-md-6">
+ <label for="stream">Stream</label>
+ <select id="stream" name="stream" class="form-control" required>
+ <option value="" disabled selected>Select your 
+stream</option>
+ <option value="CSE">computer science and engineering</option>
+ <option value="ECE">electronics and communication 
+engineering</option>
+ <option value="EEE">electrical and electronics 
+engineering</option>
+ <option value="ME">Mechanical engineering</option>
+ <option value="CIV">Civil engineering</option>
+ <option value="BT">Bio technology</option>
+ </select>
+ </div>
+ <div class="form-group col-md-6">
+ <label for="semester">Current Semester</label>
+ <select id="semester" name="semester" class="form-control"
+required>
+ <option value="" disabled selected>Select your 
+semester</option>
+ <option value="1">1</option>
+ <option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4">4</option>
+ <option value="5">5</option>
+ <option value="6">6</option>
+ <option value="7">7</option>
+ <option value="8">8</option>
+ </select>
+ </div>
+ </div>
+ <div class="form-group">
+ <label>Gender</label><br>
+ <div class="form-check form-check-inline">
+ <input class="form-check-input" type="radio" id="male"
+name="gender" value="male" required>
+ <label class="form-check-label" for="male">Male</label>
+ </div>
+ <div class="form-check form-check-inline">
+ <input class="form-check-input" type="radio" id="female"
+name="gender" value="female" required>
+ <label class="form-check-label" for="female">Female</label>
+ </div>
+ <div class="form-check form-check-inline">
+ <input class="form-check-input" type="radio" id="other"
+name="gender" value="other" required>
+ <label class="form-check-label" for="other">Other</label>
+ </div>
+ </div>
+ <div class="form-group">
+ <label for="password">Password</label>
+ <input type="password" class="form-control" id="password"
+name="password" oninput="checkPasswordStrength()" required>
+ <input type="checkbox" onclick="myFunction()">Show Password
+<script>
+function myFunction() {
+ var x = document.getElementById("password");
+ if (x.type === "password") {
+ x.type = "text";
+ } else {
+ x.type = "password";
+ }
+}
+</script>
+ <small id="passwordHelpBlock" class="form-text text-muted">
+ Password must be at least 8 characters long, contain at least one 
+symbol and one capital letter, and not contain commas, equals, or hyphens.
+ </small>
+ <div id="passwordStrength" class="mt-2"></div>
+ </div>
+ <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+ </form>
+ </div>
+ <!-- Bootstrap JS and dependencies -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script
+src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></scri
+pt>
+ <script
+src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script
+>
+ <script>
+ function validateForm() {
+ var email = document.getElementById("email").value.toLowerCase();
+ var emailPattern = /^[a-z]+\.[0-9]{5}(cse|ece|eee|me|civ|bt)[0-
+9]{4}@presidencyuniversity\.in$/;
+ if (!emailPattern.test(email)) {
+ document.getElementById("email").classList.add("is-invalid");
+ return false;
+ } else {
+ document.getElementById("email").classList.remove("is-invalid");
+ }
+ return true;
+ }
+ </script>
+ <script>
+ function checkPasswordStrength() {
+ var password = document.getElementById("password").value;
+ var passwordStrength = document.getElementById("passwordStrength");
+ 
+ // Reset password strength indicator
+ passwordStrength.innerHTML = "";
+ // Check if password contains name
+ var name = document.getElementById("name").value.toLowerCase();
+ if (password.toLowerCase().includes(name)) {
+ passwordStrength.innerHTML = "Password cannot contain your name";
+ return;
+ }
+ // Check if password contains comma, equals, or hyphen
+ if (password.includes(",") || password.includes("=") || 
+password.includes("-")) {
+ passwordStrength.innerHTML = "Password cannot contain comma, equals, 
+or hyphen";
+ return;
+ }
+ // Check password length
+ var length = password.length;
+ if (length < 8) {
+ passwordStrength.innerHTML = "Weak (Minimum 8 characters)";
+ passwordStrength.classList.add("password-strength-weak");
+ } else if (length >= 8 && length <= 12) {
+ passwordStrength.innerHTML = "Moderate (8-12 characters)";
+ passwordStrength.classList.add("password-strength-moderate");
+ } else {
+ passwordStrength.innerHTML = "Strong (13 or more characters)";
+ passwordStrength.classList.add("password-strength-strong");
+ }
+ // Check if password contains at least one symbol and one capital letter
+ var symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+ var capitalLetterRegex = /[A-Z]/;
+ if (!symbolRegex.test(password)) {
+ passwordStrength.innerHTML += "<br>Password must contain at least one 
+symbol";
+ }
+ if (!capitalLetterRegex.test(password)) {
+ passwordStrength.innerHTML += "<br>Password must contain at least one 
+capital letter";
+ }
+ }
+ </script>
+</body>
+</html>
