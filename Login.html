@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Login - Student Cryptographic Assist</title>
+ <style>
+ body {
+ background-image:
+url('https://static.vecteezy.com/system/resources/previews/008/375/420/non_2x/fingerprint-network-cyber-security-background-vector.jpg'); /* Replace with your background 
+image URL */
+ background-size: cover;
+ background-position: center;
+ height: 100vh;
+ margin: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: rgba(0, 0, 0, 0.5); /* Opacity for background image */
+ }
+ .login-container {
+ background-color: rgba(255, 255, 255, 1); /* Opacity for container */
+ padding: 30px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ width: 100%;
+ max-width: 400px;
+ }
+ .login-container h2 {
+ margin-bottom: 20px;
+ text-align: center;
+ color: #007bff;
+ }
+ .login-container button {
+ background-color: #007bff;
+ border: none;
+ }
+ .login-container button:hover {
+ background-color: #0056b3;
+ }
+ .error-message {
+ color: red;
+ text-align: center;
+ }
+ </style>
+</head>
+<body>
+ <div class="container login-container">
+ <h2>Login</h2>
+ <form id="login-form" action="loginservlet" method="POST">
+ <div class="form-group">
+ <label for="email">Email</label>
+ <input type="email" class="form-control" id="email" name="email"
+required>
+ </div>
+ <div class="form-group">
+ <label for="password">Password</label>
+ <input type="password" class="form-control" id="password"
+name="password" required>
+ <input type="checkbox" onclick="myFunction()">Show Password
+<script>
+function myFunction() {
+ var x = document.getElementById("password");
+ if (x.type === "password") {
+ x.type = "text";
+ } else {
+ x.type = "password";
+ }
+}
+</script>
+ </div>
+ <button type="submit" class="btn btn-primary btn-block">Login</button>
+ </form>
+ </div>
+</body>
+</html>
